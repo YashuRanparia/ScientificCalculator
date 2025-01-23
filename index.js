@@ -18,6 +18,8 @@ const mr = document.getElementById('mr')
 const madd = document.getElementById('madd')
 const msubt = document.getElementById('msubt')
 const ms = document.getElementById('ms')
+const m = document.getElementById('m')
+const memo = document.getElementById('memo')
 
 const optDict = {
     '+': 1,
@@ -62,16 +64,16 @@ class Calculator{
         return this.memory
     }
 
-    setMemo(val){
-        this.memory = (val).toString()
+    setMemo(){
+        this.memory = (this.distext).toString()
     }
 
-    addToMemo(val){
-        this.memory = (parseFloat(this.memory) + parseFloat(val)).toString()
+    addToMemo(){
+        this.memory = (parseFloat(this.memory) + parseFloat(this.distext)).toString()
     }
 
-    minusToMemo(val){
-        this.memory = (parseFloat(this.memory) - parseFloat(val)).toString()
+    minusToMemo(){
+        this.memory = (parseFloat(this.memory) - parseFloat(this.distext)).toString()
     }
 
     clearMemo(){
@@ -213,6 +215,8 @@ class Calculator{
 
 const calc = new Calculator()
 
+
+// Event Listeners
 for(let i = 0;i<10;i++){
     const ele = document.getElementById(`l${i}`)
     ele.addEventListener('click',
@@ -277,7 +281,13 @@ funs.addEventListener('click',
 clear_all.addEventListener('click', clearAll)
 clear_last.addEventListener('click', clearLast)
 
+ms.addEventListener('click', storeMemo)
+mr.addEventListener('click', readMemo)
+mc.addEventListener('click', clearMemo)
+madd.addEventListener('click',addToMemo)
+msubt.addEventListener('click', minusToMemo)
 
+memo.addEventListener('click',showMemo)
 
 
 // Logic implementation
@@ -339,7 +349,34 @@ function doSquare(){
     calc.set(ans)
 }
 
+function storeMemo(){
+    calc.setMemo(calc.get())
+}
 
+function readMemo(){
+    calc.readMemo()
+}
+
+function clearMemo(){
+    calc.clearMemo()
+}
+
+function addToMemo(){
+    calc.addToMemo(calc.get())
+}
+
+function minusToMemo(){
+    calc.minusToMemo()
+}
+
+function showMemo(){
+    memo.style.display = 'block'
+    memo.style.width = '100%'
+    memo.style.height = '30%'
+
+    disp.style.height = '65%'
+    disp.style.fontSize = '38px'
+}
 
 function calculate(){
     const ans = calc.evaluate();
